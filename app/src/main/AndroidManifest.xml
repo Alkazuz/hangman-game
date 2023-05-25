@@ -12,11 +12,15 @@
         android:theme="@style/Theme.Hangmangame"
         tools:targetApi="31">
         <activity
+            android:name="ufms.hangman.game.activities.MainActivity"
+            android:exported="false" />
+        <activity
             android:name=".GameActivity"
-            android:screenOrientation="landscape"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
