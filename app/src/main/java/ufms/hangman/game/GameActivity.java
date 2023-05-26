@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import ufms.hangman.game.R;
@@ -32,6 +33,12 @@ public class GameActivity extends AppCompatActivity {
         forca.setImageResource(drawbleId);
     }
 
+    public void updateScore() {
+        int score = game.getScore();
+        TextView scoreView = findViewById(R.id.textView_score);
+        scoreView.setText(String.format("Score: %d", score));
+    }
+
     private void createAZButtons() {
         GridLayout gridLayout = findViewById(R.id.gridLayout);
 
@@ -55,6 +62,7 @@ public class GameActivity extends AppCompatActivity {
         button.setActivated(false);
         if(game.verifyLetter(letter)) {
             game.addScore(1);
+            updateScore();
             Toast.makeText(this, "Letra correta: " + letter, Toast.LENGTH_SHORT).show();
             if(game.getWordManager().getWord().isCompleted()) {
                 Word nextWord = game.getWordManager().getNextWord();
@@ -77,6 +85,7 @@ public class GameActivity extends AppCompatActivity {
             game.addScore(-1);
             game.setGameState(nextGameState);
             updateForca();
+            updateScore();
             Toast.makeText(this, "Letra incorreta: " + letter, Toast.LENGTH_SHORT).show();
         }
     }

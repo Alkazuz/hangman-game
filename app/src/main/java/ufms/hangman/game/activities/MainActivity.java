@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void createButtonPhotoHandle() {
-        Button takePictureButton = findViewById(R.id.select_photo);
+        CircleImageView takePictureButton = findViewById(R.id.player_photo);
 
         takePictureButton.setOnClickListener(v -> {
             Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
