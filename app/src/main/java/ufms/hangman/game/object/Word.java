@@ -24,4 +24,9 @@ public class Word {
     public void setHint(String hint) {
         this.hint = hint;
     }
+
+
+    public boolean isCompleted() {
+        return word.chars().allMatch(c -> Character.isLetter(c) && c != ' ');
+    }
 }

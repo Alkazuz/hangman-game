@@ -7,9 +7,9 @@ public class Player {
     private int score;
     private Bitmap avatar;
 
-    public Player(String name, int score, Bitmap avatar) {
+    public Player(String name, Bitmap avatar) {
         this.name = name;
-        this.score = score;
+        this.score = 0;
         this.avatar = avatar;
     }
 
