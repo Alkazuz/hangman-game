@@ -45,7 +45,7 @@ public class GameActivity extends AppCompatActivity {
     public void updateWord() {
         Word word = game.getWordManager().getWord();
         TextView wordView = findViewById(R.id.textView_word);
-        wordView.setText(word.incompletedPreview());
+        wordView.setText(word.incompletedPreview(game.getWordManager().getLettersUsed()));
     }
 
     public void updateHint() {
