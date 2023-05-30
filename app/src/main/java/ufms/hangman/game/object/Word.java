@@ -27,6 +27,18 @@ public class Word {
 
 
     public boolean isCompleted() {
-        return word.chars().allMatch(c -> Character.isLetter(c) && c != ' ');
+        return word.chars().allMatch(c -> Character.isLetter(c) && c != ' ' && c != '_');
+    }
+
+    public String incompletedPreview() {
+        StringBuilder preview = new StringBuilder();
+        for (char c : word.toCharArray()) {
+            if (Character.isLetter(c)) {
+                preview.append("_");
+            } else {
+                preview.append(c);
+            }
+        }
+        return preview.toString();
     }
 }
