@@ -24,6 +24,9 @@ public class GameActivity extends AppCompatActivity {
 
         updateForca();
         createAZButtons();
+        updateHint();
+        updateScore();
+        updateWord();
     }
 
     public void updateForca() {
@@ -37,6 +40,18 @@ public class GameActivity extends AppCompatActivity {
         int score = game.getScore();
         TextView scoreView = findViewById(R.id.textView_score);
         scoreView.setText(String.format("Score: %d", score));
+    }
+
+    public void updateWord() {
+        Word word = game.getWordManager().getWord();
+        TextView wordView = findViewById(R.id.textView_word);
+        wordView.setText(word.incompletedPreview());
+    }
+
+    public void updateHint() {
+        Word word = game.getWordManager().getWord();
+        TextView hintView = findViewById(R.id.textView_hint);
+        hintView.setText(word.getHint());
     }
 
     private void createAZButtons() {
@@ -63,6 +78,7 @@ public class GameActivity extends AppCompatActivity {
         if(game.verifyLetter(letter)) {
             game.addScore(1);
             updateScore();
+            updateWord();
             Toast.makeText(this, "Letra correta: " + letter, Toast.LENGTH_SHORT).show();
             if(game.getWordManager().getWord().isCompleted()) {
                 Word nextWord = game.getWordManager().getNextWord();
