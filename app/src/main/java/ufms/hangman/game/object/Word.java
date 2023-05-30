@@ -28,8 +28,15 @@ public class Word {
     }
 
 
-    public boolean isCompleted() {
-        return word.chars().allMatch(c -> Character.isLetter(c) && c != ' ' && c != '_');
+    public boolean isCompleted(List<String> lettersUsed) {
+        for (char letter : word.toCharArray()) {
+            if (Character.isLetter(letter) && letter != ' ') {
+                if (!lettersUsed.contains(String.valueOf(letter))) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     public String incompletedPreview(List<String> lettersUsed) {

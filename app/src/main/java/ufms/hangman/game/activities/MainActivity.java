@@ -19,6 +19,7 @@ import ufms.hangman.game.GameManager;
 import ufms.hangman.game.R;
 import ufms.hangman.game.object.Game;
 import ufms.hangman.game.object.Player;
+import ufms.hangman.game.object.Word;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -58,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
 
         Game game = new Game(player, difficulty);
 
+        game.getWordManager().setWord(new Word("TESTE", "Dica: teste"));
         GameManager.getInstance().setGame(game);
 
         Intent intent = new Intent(MainActivity.this, GameActivity.class);

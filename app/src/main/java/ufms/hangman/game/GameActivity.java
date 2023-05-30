@@ -75,12 +75,13 @@ public class GameActivity extends AppCompatActivity {
 
     private void onLetterClick(String letter, Button button) {
         button.setActivated(false);
+        updateWord();
         if(game.verifyLetter(letter)) {
             game.addScore(1);
             updateScore();
             updateWord();
             Toast.makeText(this, "Letra correta: " + letter, Toast.LENGTH_SHORT).show();
-            if(game.getWordManager().getWord().isCompleted()) {
+            if(game.getWordManager().getWord().isCompleted(game.getWordManager().getLettersUsed())) {
                 Word nextWord = game.getWordManager().getNextWord();
                 if (nextWord == null) {
                     Toast.makeText(this, "Fim de jogo. Você ganhou!", Toast.LENGTH_SHORT).show();
