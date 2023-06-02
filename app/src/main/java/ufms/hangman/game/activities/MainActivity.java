@@ -20,6 +20,7 @@ import ufms.hangman.game.R;
 import ufms.hangman.game.object.Game;
 import ufms.hangman.game.object.Player;
 import ufms.hangman.game.object.Word;
+import ufms.hangman.game.utils.LocalStorageManager;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private Button playButton;
     private Spinner difficultySpinner;
     private EditText playerName;
+    private Button addWordButtom;
     private Bitmap playerPhotoBitmap;
 
     @Override
@@ -39,9 +41,19 @@ public class MainActivity extends AppCompatActivity {
         this.playerPhoto = findViewById(R.id.player_photo);
         this.difficultySpinner = findViewById(R.id.difficulty_spinner);
         this.playerName = findViewById(R.id.player_name);
+        this.addWordButtom = findViewById(R.id.add_word);
 
         createPlayButtonHandle();
         createButtonPhotoHandle();
+        createButtonAddWordHandle();
+        LocalStorageManager.init(this);
+    }
+
+    private void createButtonAddWordHandle() {
+        addWordButtom.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, NewWordActivity.class);
+            startActivity(intent);
+        });
     }
 
     private void createPlayButtonHandle() {

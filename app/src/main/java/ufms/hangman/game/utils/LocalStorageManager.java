@@ -1,5 +1,6 @@
 package ufms.hangman.game.utils;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.google.gson.Gson;
@@ -10,10 +11,14 @@ public class LocalStorageManager {
     private static LocalStorageManager instance;
     private SharedPreferences sharedPreferences;
 
+    private LocalStorageManager(Context context) {
+        sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+    }
+
+    public static void init(Context context) {
+        instance = new LocalStorageManager(context);
+    }
     public static LocalStorageManager getInstance() {
-        if (instance == null) {
-            instance = new LocalStorageManager();
-        }
         return instance;
     }
 

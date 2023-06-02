@@ -5,10 +5,17 @@ import java.util.List;
 public class Word {
     private String word;
     private String hint;
+    private Game.Difficulty difficulty;
 
     public Word(String word, String hint) {
         this.word = word;
         this.hint = hint;
+    }
+
+    public Word(String word, String hint, Game.Difficulty difficulty) {
+        this.word = word;
+        this.hint = hint;
+        this.difficulty = difficulty;
     }
 
     public String getWord() {
@@ -27,6 +34,13 @@ public class Word {
         this.hint = hint;
     }
 
+    public Game.Difficulty getDifficulty() {
+        return difficulty;
+    }
+
+    public void setDifficulty(Game.Difficulty difficulty) {
+        this.difficulty = difficulty;
+    }
 
     public boolean isCompleted(List<String> lettersUsed) {
         for (char letter : word.toCharArray()) {
