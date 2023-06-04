@@ -5,6 +5,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.Arrays;
+
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static DatabaseHelper instance = null;
     private static final String DATABASE_NAME = "data.db";
@@ -32,8 +34,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "CREATE TABLE IF NOT EXISTS words (id INTEGER PRIMARY KEY, word TEXT, difficulty INTEGER)",
                 "CREATE TABLE IF NOT EXISTS games (id INTEGER PRIMARY KEY, player_id INTEGER, score INTEGER, word_id INTEGER, difficulty INTEGER, status INTEGER, FOREIGN KEY(player_id) REFERENCES players(id), FOREIGN KEY(word_id) REFERENCES words(id))"
         };
-        String CREATE_TABLE_EXEMPLO = "CREATE TABLE TabelaExemplo (id INTEGER PRIMARY KEY, nome TEXT)";
-        db.execSQL(CREATE_TABLE_EXEMPLO);
+        Arrays.asList(tables).forEach(db::execSQL);
     }
 
     @Override
