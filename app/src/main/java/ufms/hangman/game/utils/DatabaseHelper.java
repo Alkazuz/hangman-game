@@ -30,9 +30,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String[] tables = new String[] {
-                "CREATE TABLE IF NOT EXISTS players (id INTEGER PRIMARY KEY, name TEXT, photo BLOB)",
+                "CREATE TABLE IF NOT EXISTS players (id INTEGER PRIMARY KEY, name TEXT, photo BLOB, score INTEGER)",
                 "CREATE TABLE IF NOT EXISTS words (id INTEGER PRIMARY KEY, word TEXT, difficulty INTEGER)",
-                "CREATE TABLE IF NOT EXISTS games (id INTEGER PRIMARY KEY, player_id INTEGER, score INTEGER, word_id INTEGER, difficulty INTEGER, status INTEGER, FOREIGN KEY(player_id) REFERENCES players(id), FOREIGN KEY(word_id) REFERENCES words(id))"
         };
         Arrays.asList(tables).forEach(db::execSQL);
     }
