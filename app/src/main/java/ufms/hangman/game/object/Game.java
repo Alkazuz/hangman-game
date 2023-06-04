@@ -2,7 +2,7 @@ package ufms.hangman.game.object;
 
 import ufms.hangman.game.R;
 
-public class Game {
+public class Game implements java.io.Serializable {
     private Player player;
     private Difficulty difficulty;
     private WordManager wordManager;

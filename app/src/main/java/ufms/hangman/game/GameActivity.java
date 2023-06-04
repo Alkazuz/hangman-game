@@ -20,7 +20,7 @@ public class GameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
-        this.game = GameManager.getInstance().getGame();
+        this.game = (Game) getIntent().getSerializableExtra("game");
 
         updateForca();
         createAZButtons();

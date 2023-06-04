@@ -2,7 +2,9 @@ package ufms.hangman.game.object;
 
 import java.util.List;
 
-public class Word {
+import ufms.hangman.game.utils.DatabaseHelper;
+
+public class Word implements EntityImpl {
     private String word;
     private String hint;
     private Game.Difficulty difficulty;
@@ -67,5 +69,26 @@ public class Word {
             }
         }
         return preview.toString();
+    }
+
+    @Override
+    public void save() {
+        DatabaseHelper db = DatabaseHelper.getInstance();
+        String sql = "INSERT INTO words (word, hint, difficulty) VALUES ('" + word + "', '" + hint + "', " + difficulty.ordinal() + ")";
+        db.executeSQL(sql);
+    }
+
+    @Override
+    public void delete() {
+        DatabaseHelper db = DatabaseHelper.getInstance();
+        String sql = "DELETE FROM words WHERE word = '" + word + "'";
+        db.executeSQL(sql);
+    }
+
+    @Override
+    public void update() {
+        DatabaseHelper db = DatabaseHelper.getInstance();
+        String sql = "UPDATE words SET hint = '" + hint + "', difficulty = " + difficulty.ordinal() + " WHERE word = '" + word + "'";
+        db.executeSQL(sql);
     }
 }

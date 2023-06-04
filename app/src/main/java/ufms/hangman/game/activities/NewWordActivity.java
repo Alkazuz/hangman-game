@@ -15,7 +15,6 @@ import java.util.List;
 import ufms.hangman.game.R;
 import ufms.hangman.game.object.Game;
 import ufms.hangman.game.object.Word;
-import ufms.hangman.game.utils.LocalStorageManager;
 
 public class NewWordActivity extends AppCompatActivity {
 
@@ -45,12 +44,7 @@ public class NewWordActivity extends AppCompatActivity {
         Word word = new Word(txtWord.getText().toString(),
                 txtHint.getText().toString(), difficulty);
 
-        List<Word> words = (List<Word>) LocalStorageManager.getInstance().loadObject("words");
-        if (words == null) {
-            words = new ArrayList<>();
-        }
-        words.add(word);
-        LocalStorageManager.getInstance().save("words", words);
+        word.save();
         Toast.makeText(this, "Palavra cadastrada com sucesso!", Toast.LENGTH_SHORT).show();
     }
 

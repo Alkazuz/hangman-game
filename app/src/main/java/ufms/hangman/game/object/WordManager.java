@@ -1,10 +1,12 @@
 package ufms.hangman.game.object;
 
+import android.database.Cursor;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import ufms.hangman.game.utils.LocalStorageManager;
+import ufms.hangman.game.utils.DatabaseHelper;
 
 public class WordManager {
     private Word word;
@@ -52,10 +54,13 @@ public class WordManager {
 
     public void loadWords() {
         this.usedWords = new ArrayList<>();
-        this.words = (List<Word>) LocalStorageManager.getInstance().loadObject("words");
-        if (this.words == null) {
-            this.words = new ArrayList<Word>();
+        DatabaseHelper databaseHelper = DatabaseHelper.getInstance();
+        List<Word> words = new ArrayList<>();
+        Cursor cursor = databaseHelper.getReadableDatabase().rawQuery("SELECT * FROM words", null);
+        while (cursor.moveToNext()) {
+            words.add(new Word(cursor.getString(1), cursor.getString(2), Game.Difficulty.valueOf(cursor.getString(3))));
         }
+        this.words = words;
     }
 
     public boolean verifyLetter(String letter) {

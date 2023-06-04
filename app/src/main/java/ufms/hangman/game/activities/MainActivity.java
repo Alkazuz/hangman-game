@@ -8,19 +8,17 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Spinner;
 
 import java.util.Arrays;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import ufms.hangman.game.GameActivity;
-import ufms.hangman.game.GameManager;
 import ufms.hangman.game.R;
 import ufms.hangman.game.object.Game;
 import ufms.hangman.game.object.Player;
 import ufms.hangman.game.object.Word;
-import ufms.hangman.game.utils.LocalStorageManager;
+import ufms.hangman.game.utils.DatabaseHelper;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -46,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         createPlayButtonHandle();
         createButtonPhotoHandle();
         createButtonAddWordHandle();
-        LocalStorageManager.init(this);
+        DatabaseHelper.init(this);
     }
 
     private void createButtonAddWordHandle() {
@@ -72,9 +70,9 @@ public class MainActivity extends AppCompatActivity {
         Game game = new Game(player, difficulty);
 
         game.getWordManager().setWord(new Word("TESTE", "Dica: teste"));
-        GameManager.getInstance().setGame(game);
 
         Intent intent = new Intent(MainActivity.this, GameActivity.class);
+        intent.putExtra("game", game);
         startActivity(intent);
     }
 
