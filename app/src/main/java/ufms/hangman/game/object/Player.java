@@ -2,18 +2,20 @@ package ufms.hangman.game.object;
 
 import android.graphics.Bitmap;
 
+import java.io.Serializable;
+
 import ufms.hangman.game.utils.DatabaseHelper;
 
-public class Player implements EntityImpl {
+public class Player implements EntityImpl, Serializable {
     private int id;
     private String name;
     private int score;
-    private Bitmap avatar;
+    private String avatar;
 
     public Player(String name, Bitmap avatar) {
         this.name = name;
         this.score = 0;
-        this.avatar = avatar;
+        this.avatar = avatar == null ? "" : avatar.toString();
     }
 
     public String getName() {
@@ -24,7 +26,7 @@ public class Player implements EntityImpl {
         return score;
     }
 
-    public Bitmap getAvatar() {
+    public String getAvatar() {
         return avatar;
     }
 
@@ -36,7 +38,7 @@ public class Player implements EntityImpl {
         this.score = score;
     }
 
-    public void setAvatar(Bitmap avatar) {
+    public void setAvatar(String avatar) {
         this.avatar = avatar;
     }
 

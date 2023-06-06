@@ -31,7 +31,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String[] tables = new String[] {
                 "CREATE TABLE IF NOT EXISTS players (id INTEGER PRIMARY KEY, name TEXT, photo BLOB, score INTEGER)",
-                "CREATE TABLE IF NOT EXISTS words (id INTEGER PRIMARY KEY, word TEXT, difficulty VARCHAR)",
+                "CREATE TABLE IF NOT EXISTS words (id INTEGER PRIMARY KEY, word TEXT, hint TEXT, difficulty TEXT)",
         };
         Arrays.asList(tables).forEach(db::execSQL);
     }

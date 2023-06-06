@@ -4,7 +4,7 @@ import java.util.List;
 
 import ufms.hangman.game.utils.DatabaseHelper;
 
-public class Word implements EntityImpl {
+public class Word implements EntityImpl, java.io.Serializable {
     private String word;
     private String hint;
     private Game.Difficulty difficulty;
@@ -57,7 +57,7 @@ public class Word implements EntityImpl {
 
     public String incompletedPreview(List<String> lettersUsed) {
         StringBuilder preview = new StringBuilder();
-        for (char letter : word.toCharArray()) {
+        for (char letter : word.toUpperCase().toCharArray()) {
             if (Character.isLetter(letter) && letter != ' ') {
                 if (lettersUsed.contains(String.valueOf(letter))) {
                     preview.append(letter);
@@ -74,7 +74,7 @@ public class Word implements EntityImpl {
     @Override
     public void save() {
         DatabaseHelper db = DatabaseHelper.getInstance();
-        String sql = "INSERT INTO words (word, hint, difficulty) VALUES ('" + word + "', '" + hint + "', " + difficulty.ordinal() + ")";
+        String sql = "INSERT INTO words (word, hint, difficulty) VALUES ('" + word + "', '" + hint + "', '" + difficulty.toString() + "')";
         db.executeSQL(sql);
     }
 
@@ -88,7 +88,7 @@ public class Word implements EntityImpl {
     @Override
     public void update() {
         DatabaseHelper db = DatabaseHelper.getInstance();
-        String sql = "UPDATE words SET hint = '" + hint + "', difficulty = " + difficulty.ordinal() + " WHERE word = '" + word + "'";
+        String sql = "UPDATE words SET hint = '" + hint + "', difficulty = '" + difficulty.toString() + "' WHERE word = '" + word + "'";
         db.executeSQL(sql);
     }
 }

@@ -66,7 +66,7 @@ public class Game implements java.io.Serializable {
         return false;
     }
 
-    public enum GameState {
+    public enum GameState implements java.io.Serializable{
         VAZIA(R.drawable.vazia),
         CABECA(R.drawable.cabeca),
         CORPO(R.drawable.corpo),
@@ -91,7 +91,7 @@ public class Game implements java.io.Serializable {
         }
 
     }
-    public enum Difficulty {
+    public enum Difficulty implements java.io.Serializable {
         EASY("Fácil"),
         MEDIUM("Médio"),
         HARD("Difícil");

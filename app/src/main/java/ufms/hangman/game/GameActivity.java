@@ -3,6 +3,7 @@ package ufms.hangman.game;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.ImageView;
@@ -45,6 +46,7 @@ public class GameActivity extends AppCompatActivity {
     public void updateWord() {
         Word word = game.getWordManager().getWord();
         TextView wordView = findViewById(R.id.textView_word);
+        Log.d("word", word.getWord() + " - " + word.incompletedPreview(game.getWordManager().getLettersUsed()));
         wordView.setText(word.incompletedPreview(game.getWordManager().getLettersUsed()));
     }
 
@@ -75,7 +77,6 @@ public class GameActivity extends AppCompatActivity {
 
     private void onLetterClick(String letter, Button button) {
         button.setActivated(false);
-        updateWord();
         if(game.verifyLetter(letter)) {
             game.addScore(1);
             updateScore();

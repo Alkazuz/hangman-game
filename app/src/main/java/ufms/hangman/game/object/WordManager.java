@@ -1,6 +1,7 @@
 package ufms.hangman.game.object;
 
 import android.database.Cursor;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +9,7 @@ import java.util.stream.Collectors;
 
 import ufms.hangman.game.utils.DatabaseHelper;
 
-public class WordManager {
+public class WordManager implements java.io.Serializable{
     private Word word;
     private Game.Difficulty difficulty;
     private List<String> lettersUsed;
@@ -16,10 +17,10 @@ public class WordManager {
     private List<Word> usedWords;
 
     public WordManager(Game.Difficulty difficulty) {
+        loadWords();
         this.difficulty = difficulty;
         this.word = getNextWord();
         this.lettersUsed = new ArrayList<String>();
-        loadWords();
     }
 
     public Word getWord() {
@@ -53,14 +54,22 @@ public class WordManager {
     }
 
     public void loadWords() {
-        this.usedWords = new ArrayList<>();
-        DatabaseHelper databaseHelper = DatabaseHelper.getInstance();
-        List<Word> words = new ArrayList<>();
-        Cursor cursor = databaseHelper.select("SELECT * FROM words");
-        while (cursor.moveToNext()) {
-            words.add(new Word(cursor.getString(1), cursor.getString(2), Game.Difficulty.valueOf(cursor.getString(3))));
+        try {
+            this.usedWords = new ArrayList<>();
+            DatabaseHelper databaseHelper = DatabaseHelper.getInstance();
+            List<Word> words = new ArrayList<>();
+            Cursor cursor = databaseHelper.select("SELECT * FROM words");
+            while (cursor.moveToNext()) {
+                Log.d("[WordManager]", "Loaded word: " + cursor.getString(1) + " - " + cursor.getString(2) + " - " + cursor.getString(3));
+                words.add(new Word(cursor.getString(1), cursor.getString(2), Game.Difficulty.valueOf(cursor.getString(3))));
+            }
+            Log.d("[WordManager]", "Loaded " + words.size() + " words");
+            this.words = words;
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.e("[WordManager]", "Failed to load words");
         }
-        this.words = words;
+
     }
 
     public boolean verifyLetter(String letter) {
