@@ -69,7 +69,8 @@ public class MainActivity extends AppCompatActivity {
 
         Game game = new Game(player, difficulty);
 
-        game.getWordManager().setWord(new Word("TESTE", "Dica: teste"));
+        game.getWordManager().loadWords();
+        game.getWordManager().setWord(game.getWordManager().getNextWord());
 
         Intent intent = new Intent(MainActivity.this, GameActivity.class);
         intent.putExtra("game", game);

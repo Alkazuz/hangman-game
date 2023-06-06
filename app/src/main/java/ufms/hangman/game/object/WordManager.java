@@ -56,7 +56,7 @@ public class WordManager {
         this.usedWords = new ArrayList<>();
         DatabaseHelper databaseHelper = DatabaseHelper.getInstance();
         List<Word> words = new ArrayList<>();
-        Cursor cursor = databaseHelper.getReadableDatabase().rawQuery("SELECT * FROM words", null);
+        Cursor cursor = databaseHelper.select("SELECT * FROM words");
         while (cursor.moveToNext()) {
             words.add(new Word(cursor.getString(1), cursor.getString(2), Game.Difficulty.valueOf(cursor.getString(3))));
         }
