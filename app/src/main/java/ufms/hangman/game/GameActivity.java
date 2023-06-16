@@ -2,6 +2,7 @@ package ufms.hangman.game;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import ufms.hangman.game.R;
+import ufms.hangman.game.activities.WinActivity;
 import ufms.hangman.game.object.Game;
 import ufms.hangman.game.object.Word;
 
@@ -22,7 +24,7 @@ public class GameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
         this.game = (Game) getIntent().getSerializableExtra("game");
-
+        this.game.getPlayer().save();
         updateForca();
         createAZButtons();
         updateHint();
@@ -85,6 +87,7 @@ public class GameActivity extends AppCompatActivity {
             if(game.getWordManager().getWord().isCompleted(game.getWordManager().getLettersUsed())) {
                 Word nextWord = game.getWordManager().getNextWord();
                 if (nextWord == null) {
+                    handleGameFinish();
                     Toast.makeText(this, "Fim de jogo. Você ganhou!", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -107,4 +110,18 @@ public class GameActivity extends AppCompatActivity {
             Toast.makeText(this, "Letra incorreta: " + letter, Toast.LENGTH_SHORT).show();
         }
     }
+
+    private void handleGameLose() {
+        //Intent intent = new Intent(this, WinActivity.class);
+        //intent.putExtra("game", game);
+        //startActivity(intent);
+    }
+
+    private void handleGameFinish() {
+        game.getPlayer().update();
+        Intent intent = new Intent(this, WinActivity.class);
+        intent.putExtra("game", game);
+        startActivity(intent);
+    }
+
 }
