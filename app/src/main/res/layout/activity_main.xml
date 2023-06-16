@@ -1,47 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:padding="16dp">
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/player_photo"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/difficulty_spinner"
-        android:layout_marginTop="-285dp"
-        android:src="@drawable/avatar"
-        app:civ_border_color="#FF000000"
-        app:civ_border_width="2dp" />
+    <!-- Header -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Jogar"
+        android:textSize="24sp"
+        android:textColor="#FFFFFF"
+        android:gravity="center"
+        android:padding="8dp"
+        android:background="#1E88E5" />
 
+    <!-- Caixa de texto para inserir o apelido -->
     <EditText
         android:id="@+id/player_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/player_name"
+        android:hint="Digite um nick"
         android:inputType="text"
-        android:layout_centerInParent="true"/>
+        android:padding="8dp"
+        android:layout_marginTop="16dp" />
 
+    <!-- Spinner para selecionar a dificuldade -->
     <Spinner
         android:id="@+id/difficulty_spinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/player_name"
-        android:entries="@array/difficulty_levels" />
+        android:padding="8dp"
+        android:layout_marginTop="8dp" />
 
-    <Button
-        android:id="@+id/start_game"
+    <!-- FlexboxLayout para adicionar ícones -->
+    <com.google.android.flexbox.FlexboxLayout
+        android:id="@+id/iconFlexbox"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        app:flexWrap="wrap"
+        app:alignItems="center"
+        app:justifyContent="center"
+        android:layout_marginTop="8dp" />
+
+    <!-- Botões na parte inferior -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:text="@string/start_game" />
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp">
 
-    <Button
-        android:id="@+id/add_word"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/add_word" />
+        <!-- Botão Jogar -->
+        <Button
+            android:id="@+id/start_game"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Jogar" />
 
-</RelativeLayout>
+        <!-- Botão Registrar Palavras -->
+        <Button
+            android:id="@+id/add_word"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Nova Palavra" />
+
+    </LinearLayout>
+
+</LinearLayout>

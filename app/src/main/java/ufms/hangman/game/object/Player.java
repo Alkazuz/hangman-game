@@ -10,12 +10,12 @@ public class Player implements EntityImpl, Serializable {
     private int id;
     private String name;
     private int score;
-    private String avatar;
+    private Avatars avatar;
 
-    public Player(String name, Bitmap avatar) {
+    public Player(String name, Avatars avatar) {
         this.name = name;
         this.score = 0;
-        this.avatar = avatar == null ? "" : avatar.toString();
+        this.avatar = avatar == null ? Avatars.BLITZ : avatar;
     }
 
     public String getName() {
@@ -26,10 +26,9 @@ public class Player implements EntityImpl, Serializable {
         return score;
     }
 
-    public String getAvatar() {
+    public Avatars getAvatar() {
         return avatar;
     }
-
     public void setName(String name) {
         this.name = name;
     }
@@ -38,7 +37,7 @@ public class Player implements EntityImpl, Serializable {
         this.score = score;
     }
 
-    public void setAvatar(String avatar) {
+    public void setAvatar(Avatars avatar) {
         this.avatar = avatar;
     }
 
@@ -72,7 +71,7 @@ public class Player implements EntityImpl, Serializable {
     @Override
     public void save() {
         DatabaseHelper db = DatabaseHelper.getInstance();
-        String sql = "INSERT INTO players (name, photo) VALUES ('" + this.name + "', '" + this.avatar + "')";
+        String sql = "INSERT INTO players (name, photo) VALUES ('" + this.name + "', '" + this.avatar.toString() + "')";
         db.executeSQL(sql);
     }
 
