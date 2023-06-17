@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import ufms.hangman.game.R;
+import ufms.hangman.game.activities.LoseActivity;
 import ufms.hangman.game.activities.WinActivity;
 import ufms.hangman.game.object.Game;
 import ufms.hangman.game.object.Word;
@@ -133,9 +134,9 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void handleGameLose() {
-        //Intent intent = new Intent(this, WinActivity.class);
-        //intent.putExtra("game", game);
-        //startActivity(intent);
+        Intent intent = new Intent(this, LoseActivity.class);
+        intent.putExtra("game", game);
+        startActivity(intent);
     }
 
     private void handleGameFinish() {

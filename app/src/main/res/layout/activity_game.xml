@@ -22,37 +22,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.34" />
+        app:layout_constraintGuide_percent="0.24" />
 
     <TextView
         android:id="@+id/textView_word"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textSize="24sp"
-        android:ems="10"
-        android:inputType="text"
+        app:layout_constraintEnd_toStartOf="@+id/button_reset"
+        app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="Autofill" />
-
-    <TextView
-        android:id="@+id/textView_hint"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Dica: "
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_word" />
-
-    <TextView
-        android:id="@+id/textView_score"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Score: 0"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_hint" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/button_reset"
@@ -60,7 +40,8 @@
         android:layout_height="wrap_content"
         android:text="Reset"
         app:layout_constraintEnd_toStartOf="@+id/button_pause"
-        app:layout_constraintTop_toBottomOf="@+id/textView_score" />
+        app:layout_constraintStart_toEndOf="@+id/textView_word"
+        app:layout_constraintTop_toTopOf="@+id/textView_word" />
 
     <Button
         android:id="@+id/button_pause"
@@ -68,7 +49,29 @@
         android:layout_height="wrap_content"
         android:text="Pause"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_score" />
+        app:layout_constraintStart_toEndOf="@+id/button_reset"
+        app:layout_constraintTop_toTopOf="@+id/textView_word" />
+
+    <TextView
+        android:id="@+id/textView_hint"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Dica: "
+        android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@+id/textView_score"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toBottomOf="@+id/textView_word" />
+
+    <TextView
+        android:id="@+id/textView_score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Score: 0"
+        android:layout_marginTop="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView_hint"
+        app:layout_constraintTop_toTopOf="@+id/textView_hint" />
 
     <GridLayout
         android:id="@+id/gridLayout"
@@ -78,7 +81,7 @@
         android:rowCount="4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@id/button_pause">
+        app:layout_constraintTop_toBottomOf="@id/textView_score">
     </GridLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
