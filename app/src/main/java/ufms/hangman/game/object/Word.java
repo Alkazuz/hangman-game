@@ -1,5 +1,7 @@
 package ufms.hangman.game.object;
 
+import android.util.Log;
+
 import java.util.List;
 
 import ufms.hangman.game.utils.DatabaseHelper;
@@ -45,7 +47,7 @@ public class Word implements EntityImpl, java.io.Serializable {
     }
 
     public boolean isCompleted(List<String> lettersUsed) {
-        for (char letter : word.toCharArray()) {
+        for (char letter : word.toUpperCase().toCharArray()) {
             if (Character.isLetter(letter) && letter != ' ') {
                 if (!lettersUsed.contains(String.valueOf(letter))) {
                     return false;

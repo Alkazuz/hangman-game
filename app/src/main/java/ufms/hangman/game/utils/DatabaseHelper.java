@@ -30,7 +30,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String[] tables = new String[] {
-                "CREATE TABLE IF NOT EXISTS players (id INTEGER PRIMARY KEY, name TEXT, photo BLOB, score INTEGER)",
+                "CREATE TABLE IF NOT EXISTS players (id INTEGER PRIMARY KEY, name TEXT, photo TEXT, score INTEGER)",
                 "CREATE TABLE IF NOT EXISTS words (id INTEGER PRIMARY KEY, word TEXT, hint TEXT, difficulty TEXT)",
         };
         Arrays.asList(tables).forEach(db::execSQL);
@@ -41,8 +41,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public void executeSQL(String sql) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL(sql);
+        try {
+            SQLiteDatabase db = this.getWritableDatabase();
+            db.execSQL(sql);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public Cursor select(String sql) {

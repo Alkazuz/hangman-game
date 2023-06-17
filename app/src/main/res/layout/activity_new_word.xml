@@ -1,38 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/new_word"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/my_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/word_to_guess"
-        android:inputType="text"
-        android:layout_centerInParent="true"/>
+        android:layout_height="?attr/actionBarSize"
+        android:background="#1E88E5"
+        app:title="Nova Palavra"
+        app:titleTextColor="#FFFFFF"
+        app:navigationIcon="@drawable/baseline_arrow_back_24" />
 
-    <EditText
-        android:id="@+id/hint_word"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/hint_word"
-        android:inputType="text"
-        android:layout_below="@id/new_word" />
+        android:padding="16sp"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <Spinner
-        android:id="@+id/difficulty_spinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/new_word"
-        android:entries="@array/difficulty_levels" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="Digite a palavra"
+            android:textFontWeight="@integer/material_motion_duration_medium_2"
+            android:textSize="18sp"
+            />
 
-    <Button
-        android:id="@+id/btn_save"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:text="Salvar" />
+        <EditText
+            android:id="@+id/new_word"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/word_to_guess"
+            android:inputType="text"
+            android:layout_centerInParent="true"/>
 
-</RelativeLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="Digite a dica"
+            android:textFontWeight="@integer/material_motion_duration_medium_2"
+            android:textSize="18sp"
+            android:layout_marginTop="16sp"
+            />
+
+        <EditText
+            android:id="@+id/hint_word"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/hint_word"
+            android:inputType="text"
+            android:layout_below="@id/new_word" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="Selecione a dificuldade"
+            android:textFontWeight="@integer/material_motion_duration_medium_2"
+            android:textSize="18sp"
+            android:layout_marginTop="16sp"
+            />
+
+        <Spinner
+            android:id="@+id/difficulty_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/new_word"
+            android:layout_marginVertical="16sp"
+            android:entries="@array/difficulty_levels" />
+
+        <Button
+            android:id="@+id/btn_save"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:text="Salvar" />
+    </LinearLayout>
+
+</LinearLayout>

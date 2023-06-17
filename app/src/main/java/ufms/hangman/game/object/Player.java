@@ -64,14 +64,18 @@ public class Player implements EntityImpl, Serializable {
     @Override
     public void update() {
         DatabaseHelper db = DatabaseHelper.getInstance();
-        String sql = "UPDATE players SET name = '" + this.name + "', photo = '" + this.avatar + "' WHERE id = " + this.id;
+        String sql = "UPDATE players SET score = " + this.score + ", photo = '" + this.avatar + "' WHERE name = '" + this.name + "'";
         db.executeSQL(sql);
     }
 
     @Override
     public void save() {
         DatabaseHelper db = DatabaseHelper.getInstance();
-        String sql = "INSERT INTO players (name, photo) VALUES ('" + this.name + "', '" + this.avatar.toString() + "')";
+
+        String sql = "SELECT * FROM players WHERE name = '" + this.name + "'";
+        if (db.select(sql).getCount() > 0) return;
+
+        sql = "INSERT INTO players (name, photo) VALUES ('" + this.name + "', '" + this.avatar.toString() + "')";
         db.executeSQL(sql);
     }
 

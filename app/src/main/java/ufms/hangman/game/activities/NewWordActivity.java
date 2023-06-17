@@ -1,8 +1,10 @@
 package ufms.hangman.game.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -26,6 +28,12 @@ public class NewWordActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_word);
 
+        Toolbar toolbar = findViewById(R.id.my_toolbar);
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         txtWord = findViewById(R.id.new_word);
         txtHint = findViewById(R.id.hint_word);
         spnCategory = findViewById(R.id.difficulty_spinner);
@@ -46,6 +54,15 @@ public class NewWordActivity extends AppCompatActivity {
 
         word.save();
         Toast.makeText(this, "Palavra cadastrada com sucesso!", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 }

@@ -3,25 +3,28 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp">
+    android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/rankHeader"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/my_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Rank"
-        android:textColor="#FFFFFF"
-        android:textSize="28sp"
-        android:textStyle="bold"
-        android:gravity="center"
-        android:padding="8dp"
-        android:background="#1E88E5" />
+        android:layout_height="?attr/actionBarSize"
+        android:background="#1E88E5"
+        app:title="Ranking"
+        app:titleTextColor="#FFFFFF"
+        app:navigationIcon="@drawable/baseline_arrow_back_24" />
 
     <LinearLayout
-        android:id="@+id/layoutRank"
         android:layout_width="match_parent"
+        android:padding="16sp"
         android:layout_height="match_parent"
-        android:orientation="vertical"></LinearLayout>
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/layoutRank"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"></LinearLayout>
+    </LinearLayout>
 
 </LinearLayout>

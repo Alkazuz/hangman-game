@@ -2,6 +2,7 @@ package ufms.hangman.game.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
@@ -34,7 +35,8 @@ public class WinActivity extends AppCompatActivity {
 
     private void setupBackButton() {
         this.backButton.setOnClickListener(v -> {
-            finish();
+            Intent intent = new Intent(WinActivity.this, MainActivity.class);
+            startActivity(intent);
         });
     }
 

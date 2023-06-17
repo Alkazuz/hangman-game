@@ -4,6 +4,7 @@ import android.database.Cursor;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,6 +22,10 @@ public class WordManager implements java.io.Serializable{
         this.difficulty = difficulty;
         this.word = getNextWord();
         this.lettersUsed = new ArrayList<String>();
+    }
+
+    public List<Word> getWords() {
+        return words;
     }
 
     public Word getWord() {
@@ -47,10 +52,13 @@ public class WordManager implements java.io.Serializable{
         List<Word> remainingWords = this.words.stream().filter(
                 word -> !this.usedWords.contains(word) && word.getDifficulty() == this.difficulty)
                 .collect(Collectors.toList());
+        Log.d("[WordManager]", "Remaining words: " + remainingWords.size());
         if (remainingWords.size() == 0) {
             return null;
         }
-        return remainingWords.get((int) (Math.random() * remainingWords.size()));
+        Word word = remainingWords.get((int) (Math.random() * remainingWords.size()));
+        this.usedWords.add(word);
+        return word;
     }
 
     public void loadWords() {
@@ -78,5 +86,9 @@ public class WordManager implements java.io.Serializable{
         }
         lettersUsed.add(letter);
         return word.getWord().toLowerCase().contains(letter.toLowerCase());
+    }
+
+    public void resetLettersUsed() {
+        lettersUsed.clear();
     }
 }

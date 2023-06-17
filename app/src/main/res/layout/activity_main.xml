@@ -3,10 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp">
+    android:orientation="vertical">
 
-    <!-- Header -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -17,58 +15,99 @@
         android:padding="8dp"
         android:background="#1E88E5" />
 
-    <!-- Caixa de texto para inserir o apelido -->
-    <EditText
-        android:id="@+id/player_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Digite um nick"
-        android:inputType="text"
-        android:padding="8dp"
-        android:layout_marginTop="16dp" />
-
-    <!-- Spinner para selecionar a dificuldade -->
-    <Spinner
-        android:id="@+id/difficulty_spinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="8dp"
-        android:layout_marginTop="8dp" />
-
-    <!-- FlexboxLayout para adicionar ícones -->
-    <com.google.android.flexbox.FlexboxLayout
-        android:id="@+id/iconFlexbox"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        app:flexWrap="wrap"
-        app:alignItems="center"
-        app:justifyContent="center"
-        android:layout_marginTop="8dp" />
-
-    <!-- Botões na parte inferior -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="8dp">
-
-        <!-- Botão Jogar -->
-        <Button
-            android:id="@+id/start_game"
-            android:layout_width="0dp"
+        android:padding="16sp"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Jogar" />
+            android:textStyle="bold"
+            android:text="Digite seu nick"
+            android:textFontWeight="@integer/material_motion_duration_medium_2"
+            android:textSize="18sp"
+            android:textColor="#000000"
+            android:layout_marginTop="16dp"
+            android:padding="8dp"/>
 
-        <!-- Botão Registrar Palavras -->
-        <Button
-            android:id="@+id/add_word"
-            android:layout_width="0dp"
+        <EditText
+            android:id="@+id/player_name"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Nova Palavra" />
+            android:hint="Digite um nick"
+            android:inputType="text"
+            android:padding="8dp"
+            />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="Selecione a dificuldade"
+            android:textFontWeight="@integer/material_motion_duration_medium_2"
+            android:textSize="18sp"
+            android:textColor="#000000"
+            android:layout_marginTop="16dp"
+            android:padding="8dp"/>
+
+        <Spinner
+            android:id="@+id/difficulty_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/difficulty_levels"
+            android:padding="8dp"
+            android:layout_marginTop="8dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="Escolha seu avatar"
+            android:textFontWeight="@integer/material_motion_duration_medium_2"
+            android:textSize="18sp"
+            android:textColor="#000000"
+            android:layout_marginTop="16dp"
+            android:padding="8dp"/>
+
+        <com.google.android.flexbox.FlexboxLayout
+            android:id="@+id/iconFlexbox"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:flexWrap="wrap"
+            app:alignItems="center"
+            app:justifyContent="center"
+            android:layout_marginTop="8dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp">
+
+            <Button
+                android:id="@+id/start_game"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/play" />
+
+            <Button
+                android:id="@+id/add_word"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5sp"
+                android:layout_weight="1"
+                android:text="@string/add_word" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_rank"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ranking de jogadores" />
     </LinearLayout>
 
 </LinearLayout>

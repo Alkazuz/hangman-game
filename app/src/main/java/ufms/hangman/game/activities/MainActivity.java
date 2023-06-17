@@ -5,10 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.google.android.flexbox.FlexboxLayout;
 
@@ -29,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private Spinner difficultySpinner;
     private EditText playerName;
     private Button addWordButtom;
+    private Button rankingButton;
     private Avatars selectedAvatar;
 
     @Override
@@ -40,11 +43,20 @@ public class MainActivity extends AppCompatActivity {
         this.playerName = findViewById(R.id.player_name);
         this.addWordButtom = findViewById(R.id.add_word);
         this.flexboxLayout = findViewById(R.id.iconFlexbox);
+        this.rankingButton = findViewById(R.id.btn_rank);
 
         createPlayButtonHandle();
         createButtonAddWordHandle();
         DatabaseHelper.init(this);
+        createRankingButtonHandle();
         loadAvatars();
+    }
+
+    private void createRankingButtonHandle() {
+        rankingButton.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, RankingActivity.class);
+            startActivity(intent);
+        });
     }
 
     private void createButtonAddWordHandle() {
@@ -68,17 +80,16 @@ public class MainActivity extends AppCompatActivity {
                 selectedAvatar = avatar;
                 for(int i = 0; i < flexboxLayout.getChildCount(); i++) {
                     ImageView child = (ImageView) flexboxLayout.getChildAt(i);
-                    child.setBackgroundResource(0);
+                    child.setAlpha(0.2f);
                 }
-                imageView.setBackgroundResource(R.drawable.selected_avatar_border);
+                imageView.setAlpha(1f);
+                Log.d("Avatar", "Avatar selected: " + avatar.name());
             });
             FlexboxLayout.LayoutParams layoutParams = new FlexboxLayout.LayoutParams(
-                    100,
-                    100
+                    250,
+                    250
             );
-            if(selectedAvatar != null && selectedAvatar.equals(avatar)) {
-                imageView.setBackgroundResource(R.drawable.selected_avatar_border);
-            }
+
             layoutParams.setMargins(8, 8, 8, 8);
 
             flexboxLayout.addView(imageView, layoutParams);
@@ -86,6 +97,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void startGame() {
+        try {
+            validateFields();
+        } catch (RuntimeException e) {
+            Log.e("MainActivity", e.getMessage());
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
+            return;
+        }
         Game.Difficulty difficulty = Arrays.stream(Game.Difficulty.values())
                 .filter(d -> d.name().equals(difficultySpinner.getSelectedItem().toString()))
                 .findFirst()
@@ -95,10 +113,26 @@ public class MainActivity extends AppCompatActivity {
         Game game = new Game(player, difficulty);
 
         game.getWordManager().loadWords();
+
+        if(game.getWordManager().getWords().size() == 0) {
+            Toast.makeText(this, "Não há palavras cadastradas", Toast.LENGTH_LONG).show();
+            return;
+        }
+
         game.getWordManager().setWord(game.getWordManager().getNextWord());
 
         Intent intent = new Intent(MainActivity.this, GameActivity.class);
         intent.putExtra("game", game);
         startActivity(intent);
     }
+
+    private void validateFields() throws RuntimeException{
+        if(playerName.getText().toString().isEmpty()){
+            throw new RuntimeException("É preciso escolher um nome para o jogador");
+        }
+        if(selectedAvatar == null){
+            throw new RuntimeException("É preciso escolher um avatar para o jogador");
+        }
+    }
+
 }

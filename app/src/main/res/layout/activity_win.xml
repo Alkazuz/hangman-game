@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#000000"
     android:padding="16dp">
 
     <TextView
@@ -11,7 +10,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Você venceu"
-        android:textColor="#FFFFFF"
         android:textSize="36sp"
         android:textStyle="bold"
         android:layout_alignParentTop="true"
@@ -24,7 +22,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Nome do Jogador"
-        android:textColor="#FFFFFF"
         android:textSize="24sp"
         android:layout_centerInParent="true"
         android:layout_marginBottom="8dp" />
@@ -34,7 +31,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Pontuação: 123"
-        android:textColor="#FFFFFF"
         android:textSize="20sp"
         android:layout_below="@+id/playerName"
         android:layout_centerHorizontal="true" />
