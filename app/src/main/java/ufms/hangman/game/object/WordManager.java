@@ -18,9 +18,7 @@ public class WordManager implements java.io.Serializable{
     private List<Word> usedWords;
 
     public WordManager(Game.Difficulty difficulty) {
-        loadWords();
         this.difficulty = difficulty;
-        this.word = getNextWord();
         this.lettersUsed = new ArrayList<String>();
     }
 
@@ -64,9 +62,10 @@ public class WordManager implements java.io.Serializable{
     public void loadWords() {
         try {
             this.usedWords = new ArrayList<>();
+            Log.d("[WordManager]", "Loading words for difficulty: " + this.difficulty.toString());
             DatabaseHelper databaseHelper = DatabaseHelper.getInstance();
             List<Word> words = new ArrayList<>();
-            Cursor cursor = databaseHelper.select("SELECT * FROM words");
+            Cursor cursor = databaseHelper.select("SELECT * FROM words WHERE difficulty = '" + this.difficulty.toString() + "'");
             while (cursor.moveToNext()) {
                 Log.d("[WordManager]", "Loaded word: " + cursor.getString(1) + " - " + cursor.getString(2) + " - " + cursor.getString(3));
                 words.add(new Word(cursor.getString(1), cursor.getString(2), Game.Difficulty.valueOf(cursor.getString(3))));

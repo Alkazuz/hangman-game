@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
         Game.Difficulty difficulty = Arrays.stream(Game.Difficulty.values())
-                .filter(d -> d.name().equals(difficultySpinner.getSelectedItem().toString()))
+                .filter(d -> d.getName().equals(difficultySpinner.getSelectedItem().toString()))
                 .findFirst()
                 .orElse(Game.Difficulty.EASY);
         Player player = new Player(playerName.getText().toString(), selectedAvatar);
