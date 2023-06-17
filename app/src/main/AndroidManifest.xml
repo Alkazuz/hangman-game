@@ -12,19 +12,19 @@
         android:theme="@style/Theme.Hangmangame"
         tools:targetApi="31">
         <activity
-            android:name=".LoseActivity"
+            android:name="ufms.hangman.game.activities.LoseActivity"
             android:exported="false" />
         <activity
-            android:name=".RankingActivity"
+            android:name="ufms.hangman.game.activities.RankingActivity"
             android:exported="false" />
         <activity
-            android:name=".WinActivity"
+            android:name="ufms.hangman.game.activities.WinActivity"
             android:exported="false" />
         <activity
-            android:name=".NewWordActivity"
+            android:name="ufms.hangman.game.activities.NewWordActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name="ufms.hangman.game.activities.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

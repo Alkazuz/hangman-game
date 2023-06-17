@@ -3,12 +3,14 @@ package ufms.hangman.game;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.GridLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,11 +18,15 @@ import android.widget.Toast;
 import ufms.hangman.game.R;
 import ufms.hangman.game.activities.LoseActivity;
 import ufms.hangman.game.activities.WinActivity;
+import ufms.hangman.game.dialog.PauseDialogFragment;
 import ufms.hangman.game.object.Game;
 import ufms.hangman.game.object.Word;
 
 public class GameActivity extends AppCompatActivity {
     private Game game;
+    private MediaPlayer mediaPlayer;
+    private ImageButton soundButton;
+    private ImageButton menuButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,11 +39,51 @@ public class GameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game);
         this.game = (Game) getIntent().getSerializableExtra("game");
         this.game.getPlayer().save();
+        this.mediaPlayer = MediaPlayer.create(this, R.raw.game_music);
+        this.mediaPlayer.setLooping(true);
+
+        this.soundButton = findViewById(R.id.button_sound);
+        this.menuButton = findViewById(R.id.button_pause);
+
+        startMusic();
         updateForca();
         createAZButtons();
         updateHint();
         updateScore();
         updateWord();
+        createSoundButtonHandle();
+        createMenuButtonHandle();
+    }
+
+    private void startMusic() {
+        if(!mediaPlayer.isPlaying()) {
+            mediaPlayer.start();
+            this.soundButton.setBackgroundResource(R.drawable.soundon);
+        }
+    }
+
+    private void stopMusic() {
+        if(mediaPlayer.isPlaying()) {
+            mediaPlayer.pause();
+            this.soundButton.setBackgroundResource(R.drawable.soundoff);
+        }
+    }
+
+    private void createMenuButtonHandle() {
+        menuButton.setOnClickListener(v -> {
+            PauseDialogFragment pauseDialogFragment = new PauseDialogFragment(this);
+            pauseDialogFragment.show(getSupportFragmentManager(), "pause_dialog_fragment");
+        });
+    }
+
+    private void createSoundButtonHandle() {
+        soundButton.setOnClickListener(v -> {
+            if(mediaPlayer.isPlaying()) {
+                stopMusic();
+            } else {
+                startMusic();
+            }
+        });
     }
 
     public void updateForca() {
