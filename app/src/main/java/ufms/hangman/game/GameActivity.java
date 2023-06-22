@@ -21,12 +21,14 @@ import ufms.hangman.game.activities.WinActivity;
 import ufms.hangman.game.dialog.PauseDialogFragment;
 import ufms.hangman.game.object.Game;
 import ufms.hangman.game.object.Word;
+import ufms.hangman.game.utils.WorkerCron;
 
 public class GameActivity extends AppCompatActivity {
     private Game game;
     private MediaPlayer mediaPlayer;
     private ImageButton soundButton;
     private ImageButton menuButton;
+    private WorkerCron workerCron;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +55,7 @@ public class GameActivity extends AppCompatActivity {
         updateWord();
         createSoundButtonHandle();
         createMenuButtonHandle();
+        startCron();
     }
 
     private void startMusic() {
@@ -135,6 +138,40 @@ public class GameActivity extends AppCompatActivity {
         }
     }
 
+    private void restartCron() {
+        if(threadCron != null) {
+            threadCron.interrupt();
+            workerCron.stop();
+        }
+        startCron();
+    }
+
+    private Thread threadCron;
+    private void startCron() {
+        TextView cronView = findViewById(R.id.textView_time);
+        this.workerCron = new WorkerCron(120, cronView, new WorkerCron.OnTimeFinishCallback() {
+            @Override
+            public void onTimeFinish() {
+                Toast.makeText(GameActivity.this, "Tempo Esgotado!", Toast.LENGTH_SHORT).show();
+                handleGameLose();
+            }
+        });
+        threadCron = new Thread(workerCron);
+        threadCron.start();
+    }
+
+    public void restartGame() {
+        game = new Game(game.getPlayer(), game.getDifficulty());
+        game.getWordManager().loadWords();
+        game.getWordManager().setWord(game.getWordManager().getNextWord());
+        restartCron();
+        updateForca();
+        updateWord();
+        updateHint();
+        updateScore();
+        createAZButtons();
+    }
+
     private void onLetterClick(String letter) {
         if(game.verifyLetter(letter)) {
             game.addScore(1);
@@ -159,15 +196,18 @@ public class GameActivity extends AppCompatActivity {
                 updateForca();
                 updateWord();
                 updateScore();
+                restartCron();
                 Toast.makeText(this, "Você acertou a palavra", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(this, "Letra correta: " + letter, Toast.LENGTH_SHORT).show();
             }
         } else {
             Game.GameState nextGameState = game.getGameState().getNextState();
-            if(nextGameState == null) {
+            Log.d("nextGameState", nextGameState == null ? "null" : nextGameState.toString());
+            if(nextGameState == null || nextGameState == Game.GameState.PERNA_DIREITA) {
                 handleGameLose();
                 game.getPlayer().update();
+                Log.d("nextGameState", "lose game");
                 Toast.makeText(this, "Fim de jogo. Você perdeu!", Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -180,16 +220,37 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void handleGameLose() {
+        Log.d("handleGameLose", "handleGameLose");
         Intent intent = new Intent(this, LoseActivity.class);
         intent.putExtra("game", game);
         startActivity(intent);
     }
 
     private void handleGameFinish() {
+        Log.d("handleGameFinish", "handleGameFinish");
         game.getPlayer().update();
         Intent intent = new Intent(this, WinActivity.class);
         intent.putExtra("game", game);
         startActivity(intent);
     }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        stopMusic();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mediaPlayer != null) {
+            if(mediaPlayer.isPlaying()){
+                mediaPlayer.stop();
+            }
+            mediaPlayer.release();
+            mediaPlayer = null;
+        }
+    }
+
 
 }

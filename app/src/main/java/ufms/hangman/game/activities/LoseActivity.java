@@ -20,7 +20,7 @@ public class LoseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_win);
+        setContentView(R.layout.activity_lose);
 
         if (getIntent().getSerializableExtra("game") != null) {
             this.game = (Game) getIntent().getSerializableExtra("game");

@@ -6,6 +6,7 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 import ufms.hangman.game.utils.DatabaseHelper;
@@ -54,7 +55,7 @@ public class WordManager implements java.io.Serializable{
         if (remainingWords.size() == 0) {
             return null;
         }
-        Word word = remainingWords.get((int) (Math.random() * remainingWords.size()));
+        Word word = remainingWords.get(new Random().nextInt(remainingWords.size()));
         this.usedWords.add(word);
         return word;
     }

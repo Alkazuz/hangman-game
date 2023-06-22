@@ -41,11 +41,16 @@ public class NewWordActivity extends AppCompatActivity {
         this.btnRegister = findViewById(R.id.btn_save);
         this.btnRegister.setOnClickListener(v -> {
             registerWord();
-            finish();
         });
     }
 
     public void registerWord() {
+        try {
+            verifyFields();
+        } catch (RuntimeException e) {
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+            return;
+        }
         Game.Difficulty difficulty = Arrays.asList(Game.Difficulty.values())
                 .stream().filter(d -> d.getName().equals(spnCategory.getSelectedItem().toString()))
                 .findFirst().get();
@@ -54,6 +59,24 @@ public class NewWordActivity extends AppCompatActivity {
 
         word.save();
         Toast.makeText(this, "Palavra cadastrada com sucesso!", Toast.LENGTH_SHORT).show();
+        finish();
+
+    }
+
+    private void verifyFields() {
+        List<String> fields = new ArrayList<>();
+        if (txtWord.getText().toString().isEmpty()) {
+            fields.add("Palavra");
+        }
+        if (txtHint.getText().toString().isEmpty()) {
+            fields.add("Dica");
+        }
+        if (spnCategory.getSelectedItem().toString().isEmpty()) {
+            fields.add("Categoria");
+        }
+        if (!fields.isEmpty()) {
+            throw new RuntimeException("Os campos " + fields.toString() + " são obrigatórios");
+        }
     }
 
     @Override
